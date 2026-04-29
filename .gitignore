@@ -205,3 +205,15 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# MLflow
+mlruns/
+mlflow_*.db
+*.db
+
+# Modelos exportados (gerenciados pelo MLflow)
+models/*.pkl
+models/*.joblib
+
+# Cache HuggingFace
+.cache/
