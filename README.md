@@ -44,15 +44,23 @@ shutil.copy(path, 'data/dataset_harmonizado.parquet')
 ```
 triagem-dengue/
 ├── data/
-│   └── dataset_harmonizado.parquet   # dataset harmonizado (68k instâncias)
+│   └── dataset_harmonizado.parquet     # baixado do HuggingFace (gitignored)
 ├── notebooks/
 │   └── recife_dengue_ldmc_jvlm2.ipynb  # notebook principal (CRISP-DM completo)
-├── models/                           # modelos exportados pelo MLflow
-├── reports/                          # figuras e matrizes de confusão
+├── src/                                # módulos Python reutilizáveis (data_loader.py, hp_search.py, evaluation.py)
+├── models/                             # modelos exportados (gitignored)
+├── reports/
+│   ├── figures/                        # figuras curadas pro relatório
+│   └── relatorio/                      # fonte LaTeX (relatorio.tex)
+├── slides/                             # fonte Beamer (slides.tex)
+├── mlruns/                             # artifacts MLflow (gitignored, regerável)
+├── mlflow_dengue.db                    # banco MLflow tracking (gitignored)
 ├── .gitignore
 ├── LICENSE
 └── README.md
 ```
+
+> **Nota**: `mlruns/`, `mlflow_dengue.db` e `data/*.parquet` são regeráveis (a partir do notebook + HuggingFace) e não entram no Git. Pra visualizar os experimentos rastreados, rode `mlflow ui --backend-store-uri sqlite:///mlflow_dengue.db` da raiz do projeto.
 
 ---
 

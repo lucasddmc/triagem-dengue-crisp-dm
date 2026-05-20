@@ -210,6 +210,7 @@ __marimo__/
 mlruns/
 mlflow_*.db
 *.db
+*.db-*
 
 # Modelos exportados (gerenciados pelo MLflow)
 models/*.pkl
@@ -217,3 +218,16 @@ models/*.joblib
 
 # Cache HuggingFace
 .cache/
+
+# Claude Code
+.claude/settings.local.json
+
+# Dados (regeráveis via HuggingFace: lucasddmc/recife-dengue-harmonizado)
+data/*.parquet
+
+# MLflow tracking (regerável a partir do notebook)
+*.db
+*.db-*
+mlruns/
+
+
