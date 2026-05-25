@@ -231,3 +231,17 @@ data/*.parquet
 mlruns/
 
 
+
+# rsync local cache (regerável: rsync apuana:~/triagem-dengue/mlruns/)
+mlflow_apuana/
+
+# Backups SQLite (regeráveis)
+*.db.bak
+*.db.bak_*
+
+# SLURM logs locais (não usar)
+logs/
+
+# y_scores são gigantes (52k linhas × 40 arquivos), regeráveis via
+# cross_val_predict(method='predict_proba') com best_estimator do MLflow.
+reports/figures/*_y_scores.csv

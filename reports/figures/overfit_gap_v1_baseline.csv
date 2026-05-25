@@ -1,0 +1,10 @@
+algoritmo,hp_name,best_value,train_at_best,val_at_best,gap_train_val,best_in_curve_range
+random_forest,n_estimators,600.0000,0.6835,0.4144,0.2691,True
+lightgbm,num_leaves,117.0000,0.6737,0.4220,0.2517,False
+decision_tree,max_depth,15.0000,0.6421,0.4221,0.2199,True
+xgboost,max_depth,7.0000,0.5296,0.4246,0.1050,True
+mlp,alpha,0.0003,0.4528,0.4214,0.0315,False
+knn,n_neighbors,29.0000,0.4212,0.4075,0.0138,False
+rna_committee,n_estimators,5.0000,0.4291,0.4160,0.0131,True
+lvq,prototype_n_per_class,5.0000,0.4178,0.4111,0.0067,True
+svm,C,0.0101,0.3933,0.3921,0.0012,False
