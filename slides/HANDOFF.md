@@ -281,7 +281,7 @@ Antes de abrir o Beamer:
 ### Slide 18 — Obrigado / Perguntas
 
 **Conteúdo**:
-- Repositório: `https://github.com/lucasddmc/projeto-mineracao-crisp-dm`
+- Repositório: `https://github.com/lucasddmc/triagem-dengue-crisp-dm`
 - Contatos: `ldmc@cin.ufpe.br`, `jvlm2@cin.ufpe.br`
 - 3-5 referências principais:
   - Demšar (2006) — Wilcoxon classifier comparison
