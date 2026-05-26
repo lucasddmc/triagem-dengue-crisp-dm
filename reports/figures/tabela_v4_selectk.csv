@@ -1,0 +1,11 @@
+rank,algoritmo,run_name,f1_macro_cv,f1_macro_cv_search,f1_macro_cv_search_std,recall_descartado,recall_comum,recall_alerta_grave,search_method
+1,xgboost,xgboost_v4_selectk,0.4105,0.4084,0.0080,0.4540,0.7589,0.0156,random
+2,lightgbm,lightgbm_v4_selectk,0.4060,0.4142,0.0055,0.4616,0.7528,0.0062,random
+3,decision_tree,decision_tree_v4_selectk,0.4047,0.4079,0.0076,0.4420,0.7761,0.0031,grid
+4,lvq,lvq_v4_selectk,0.4022,0.3990,0.0075,0.4173,0.7930,0.0062,grid
+5,rna_committee,rna_committee_v4_selectk,0.4012,0.4042,0.0056,0.4292,0.7867,0.0000,random
+6,random_forest,random_forest_v4_selectk,0.4007,0.4067,0.0058,0.4190,0.7971,0.0000,random
+7,mlp,mlp_v4_selectk,0.4003,0.4036,0.0077,0.4313,0.7814,0.0000,random
+8,knn,knn_v4_selectk,0.3965,0.4054,0.0054,0.5402,0.6526,0.0000,grid
+9,stacking,stacking_v4_selectk,0.3957,0.4051,0.0049,0.3993,0.8056,0.0000,grid
+10,svm,svm_v4_selectk,0.3832,0.3903,0.0037,0.3570,0.8194,0.0000,random

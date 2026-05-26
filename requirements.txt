@@ -1,0 +1,30 @@
+# Triagem-Dengue — dependências em ranges (compatibilidade Python 3.10+)
+# Versões testadas localmente em 2026-05-20 com Python 3.11.
+
+# Dados
+pandas>=2.2,<3
+numpy>=1.26,<3
+pyarrow>=15
+
+# ML core
+scikit-learn>=1.5,<2
+scipy>=1.13,<2
+
+# Modelos
+xgboost>=2.0
+lightgbm>=4.0
+
+# Sampling / desbalanceamento
+imbalanced-learn>=0.13
+
+# Tracking
+mlflow>=2.15
+
+# Plots
+matplotlib>=3.7
+
+# LVQ (opcional, comente se não rodar lvq.py)
+sklvq
+
+# Dataset (download via HF Hub)
+huggingface_hub

@@ -1,0 +1,11 @@
+algoritmo,f1_macro_cv,recall_alerta_grave,pareto_optimal
+xgboost,0.4105,0.0156,True
+lightgbm,0.4060,0.0062,False
+decision_tree,0.4047,0.0031,False
+lvq,0.4022,0.0062,False
+rna_committee,0.4012,0.0000,False
+random_forest,0.4007,0.0000,False
+mlp,0.4003,0.0000,False
+knn,0.3965,0.0000,False
+stacking,0.3957,0.0000,False
+svm,0.3832,0.0000,False

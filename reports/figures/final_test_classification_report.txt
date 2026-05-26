@@ -1,0 +1,9 @@
+              precision    recall  f1-score   support
+
+  Descartado     0.5794    0.6528    0.6139      5777
+       Comum     0.6888    0.6133    0.6489      7197
+Alerta/Grave     0.0365    0.0625    0.0461        80
+
+    accuracy                         0.6274     13054
+   macro avg     0.4349    0.4429    0.4363     13054
+weighted avg     0.6364    0.6274    0.6297     13054

@@ -53,6 +53,59 @@ def _get_or_create_experiment(client: MlflowClient, name: str) -> str:
     return exp.experiment_id
 
 
+def _normalize_source_artifact_uris(source_uri: str, experiment_id: str) -> int:
+    """Reescreve `artifact_uri` nos meta.yaml do source pra apontar pro path local.
+
+    Bug catalisador: rsync preserva o conteúdo dos meta.yaml mas o campo
+    `artifact_uri` permanece gravado com o caminho absoluto da origem
+    (ex.: `file:///home/CIN/ldmc/triagem-dengue/mlruns/...`). O MLflow client
+    local não encontra esse path, então `list_artifacts()` retorna vazio e
+    artifacts não são copiados pro target.
+
+    Esta função detecta e corrige `meta.yaml` em runs do experimento informado,
+    no source backend `file://`. Idempotente — só reescreve quando há mismatch.
+    Salva backup `.bak` por meta.yaml alterado. Retorna número de arquivos
+    reescritos.
+
+    Para source backends que não são `file://`, retorna 0 silenciosamente.
+    """
+    if not source_uri.startswith("file://"):
+        return 0
+    source_root = Path(source_uri[len("file://"):])
+    exp_dir = source_root / experiment_id
+    if not exp_dir.exists():
+        return 0
+    expected_prefix = f"file://{source_root}"
+    n_fixed = 0
+    for meta in exp_dir.glob("*/meta.yaml"):
+        run_dir = meta.parent
+        expected_uri = f"{expected_prefix}/{experiment_id}/{run_dir.name}/artifacts"
+        try:
+            content = meta.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        # Lê o artifact_uri atual (primeira linha do tipo `artifact_uri: <val>`)
+        lines = content.splitlines()
+        current_uri = None
+        for line in lines:
+            if line.startswith("artifact_uri:"):
+                current_uri = line.split(":", 1)[1].strip()
+                break
+        if current_uri == expected_uri:
+            continue  # já correto
+        # Backup + reescrita
+        bak = meta.with_suffix(".yaml.bak")
+        if not bak.exists():
+            bak.write_text(content, encoding="utf-8")
+        new_lines = [
+            f"artifact_uri: {expected_uri}" if line.startswith("artifact_uri:") else line
+            for line in lines
+        ]
+        meta.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+        n_fixed += 1
+    return n_fixed
+
+
 def _already_synced_run_ids(client: MlflowClient, target_exp_id: str) -> set[str]:
     """Retorna conjunto de `apuana_run_id` já presentes no target (idempotência)."""
     synced = set()
@@ -124,6 +177,12 @@ def sync(source_uri: str, target_uri: str, experiment_name: str,
     if src_exp is None:
         print(f"❌ Experiment '{experiment_name}' não encontrado no source.")
         return {"copied": 0, "skipped": 0, "error": "no_source_experiment"}
+
+    # Normaliza artifact_uri nos meta.yaml do source (corrige path do Apuana
+    # gravado pelo rsync — sem isso, list_artifacts() retorna vazio).
+    n_fixed = _normalize_source_artifact_uris(source_uri, src_exp.experiment_id)
+    if n_fixed:
+        print(f"  ↪ {n_fixed} meta.yaml reescritos (artifact_uri local).")
 
     # Target experiment (cria se não existir)
     if dry_run:
